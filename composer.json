@@ -1,0 +1,22 @@
+{
+"name": "ntqhuong/demo-module",
+"description": "For testing",
+"keywords": [
+"ntqhuong"
+],
+"authors": [
+{
+"name": "ntqhuong",
+"email": "iris.nguyen1309.qh@gmail.com"
+}
+],
+"license": "MIT",
+"require": {
+},
+"autoload": {
+"psr-4": {
+"ntqhuong\\module\\": "/"
+}
+},
+"minimum-stability": "dev"
+}
