@@ -25,7 +25,7 @@
             </div>
           </v-card-title>
           <v-card-actions>
-            <v-btn color="green" v-on:click="back">Back</v-btn>
+            <v-btn flat color="green" @click="back">back</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -35,11 +35,9 @@
       <v-flex xs12>
         <div class="text-xs-center">
           <v-dialog v-model="dialog" width="500">
-            <template v-slot:activator="{ on }">
-              <v-btn v-on="on" color="green" dark>
-                View Ratings
-              </v-btn>
-            </template>
+            <v-btn slot="activator" color="green" dark>
+              View Ratings
+            </v-btn>
             <v-card>
               <v-card-title class="headline grey lighten-2" primary-title>
                 Ratings
@@ -64,7 +62,7 @@
               <v-divider></v-divider>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" v-on:click="dialog = false">
+                <v-btn color="primary" flat @click="dialog = false">
                   OK
                 </v-btn>
               </v-card-actions>
@@ -75,8 +73,9 @@
     </v-layout>
   </v-container>
 </template>
+
 <script>
-import axios from "axios";
+import movieApi from "../services/movieApi";
 export default {
   props: ["id"],
   data() {
@@ -87,18 +86,11 @@ export default {
       ratings: "",
     };
   },
-  methods: {
-    back () {
-      this.$router.push('/latestmovie')
-    }
-  },
   mounted() {
-    axios
-      .get(
-        "http://www.omdbapi.com/?apikey=8d762b08&i=tt1228705&Content-Type=application/json"
-      )
+    movieApi
+      .fetchSingleMovie(this.id)
       .then((response) => {
-        this.singleMovie = response.data;
+        this.singleMovie = response;
         this.ratings = this.singleMovie.Ratings;
         this.ratings.forEach(function(element) {
           element.Value = parseFloat(element.Value.split(/\/|%/)[0]);
@@ -111,6 +103,16 @@ export default {
         console.log(error);
       });
   },
+  methods: {
+    back() {
+      this.$router.push("/latestmovie");
+    },
+  },
 };
 </script>
-<style lang="scss"></style>
+
+<style lang="scss" scoped>
+.v-progress-circular {
+  margin: 1rem;
+}
+</style>

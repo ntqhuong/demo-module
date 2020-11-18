@@ -1,8 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import LatestMovie from "@/components/LatestMovie";
-import Movie from "@/components/Movie";
+import LatestMovie from "../components/LatestMovie";
+import Movie from "../components/Movie";
 
 Vue.use(VueRouter);
 
